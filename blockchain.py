@@ -26,9 +26,11 @@ class Blockchain(object):
     chain = []
 
     def __init__(self):
-        if not self.does_chain_exist():
+        if not self.does_chain_exist:
             self.chain = [self.create_genesis_block()]
+            print("<Message:004> Chain does not exist. New chain created.\n")
 
+    @property
     def does_chain_exist(self):
         all_data = []
 
@@ -42,21 +44,13 @@ class Blockchain(object):
                         all_data.append(split_data)
 
             for data_index in range(0, len(all_data), 5):
-                r_index = all_data[data_index]
-                r_timestamp = all_data[data_index + 1]
-                r_data = all_data[data_index + 2]
-                r_previous_hash = all_data[data_index + 3]
-
-                self.chain.append(Block(r_index, r_timestamp, r_data, r_previous_hash))
+                self.chain.append(Block(all_data[data_index], all_data[data_index + 1], all_data[data_index + 2], all_data[data_index + 3]))
         else:
             print("<Message:002> File does not exist")
 
         if len(self.chain) > 0:
             print("<Message:003> Chain exists. Appending new data.\n")
-            return True
-        else:
-            print("<Message:004> Chain does not exist. New chain created.\n")
-            return False
+        return len(self.chain) > 0
 
     def create_genesis_block(self):
         return Block(0, self.get_current_time(), "Thy Beginning", "0")
@@ -126,5 +120,3 @@ for i in range(0, max_blocks):
 my_chain.print_chain()
 my_chain.save_chain()
 my_chain.is_chain_valid()
-
-# watch me nae nae
