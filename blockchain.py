@@ -58,7 +58,7 @@ class Blockchain(object):
 
     def get_current_time(self):
         now = date.datetime.now()
-        time = "%s/%s/%s %s:%s:%s" % (now.day, now.month, now.year, now.hour, now.minute, now.second)
+        time = "{0.day}/{0.month}/{0.year} {0.hour}:{0.minute}:{0.second}".format(now)
         return time
 
     def create_new_block(self):
@@ -96,17 +96,12 @@ class Blockchain(object):
             print(block.print_block_info()),
 
     def save_chain(self):
-        file = open("blockchain.txt", "w")
-
-        for block in self.chain:
-            file.write(block.print_block_info())
-
-        file.close()
-
+        with open("blockchain.txt", "w") as file:
+            for block in self.chain:
+                file.write(block.print_block_info())
 
 # Create Blockchain
 my_chain = Blockchain()
-
 
 # Max number of blocks in chain
 max_blocks = int(input("How many blocks do you plan on adding today, sir ? "))
