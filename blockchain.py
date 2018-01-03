@@ -54,7 +54,7 @@ class Blockchain(object):
         return Block(0, self.get_current_time(), "Thy Beginning", "0")
 
     def get_last_block(self):
-        return self.chain[len(self.chain) - 1]
+        return self.chain[-1]
 
     def get_current_time(self):
         now = date.datetime.now()
