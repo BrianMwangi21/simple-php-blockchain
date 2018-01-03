@@ -23,8 +23,6 @@ class Block(object):
 
 
 class Blockchain(object):
-    chain = []
-
     def __init__(self):
         if not self.does_chain_exist:
             self.chain = [self.create_genesis_block()]
@@ -114,7 +112,7 @@ my_chain = Blockchain()
 max_blocks = int(input("How many blocks do you plan on adding today, sir ? "))
 
 # Loop away
-for i in range(0, max_blocks):
+for i in range(max_blocks):
     my_chain.create_new_block()
 
 my_chain.print_chain()
