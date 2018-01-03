@@ -3,7 +3,7 @@ import datetime as date
 import os
 
 
-class Block(object):
+class Block(object): 
     def __init__(self, index, timestamp, data, previous_hash):
         self.index = index
         self.timestamp = timestamp
@@ -24,6 +24,8 @@ class Block(object):
 
 
 class Blockchain(object):
+    chain = []
+    
     def __init__(self):
         if not self.does_chain_exist:
             self.chain = [self.create_genesis_block()]
