@@ -19,9 +19,7 @@ class Block(object):
 
     def print_block_info(self):
         return ("\nIndex \t\t\t>> {0.index} \nTimestamp \t\t>> {0.timestamp} \nData \t\t\t>> {0.data}"
-                "\nPrevious Hash \t>> {0.previous_hash} \nCurrent Hash \t>> {0.hash}")\
-               .format(self.index, self.timestamp, self.data, self.previous_hash, self.hash)
-
+                "\nPrevious Hash \t>> {0.previous_hash} \nCurrent Hash \t>> {0.hash}").format(self)
 
 class Blockchain(object):
     chain = []
