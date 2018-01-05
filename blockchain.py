@@ -3,7 +3,7 @@ import datetime as date
 import os
 
 
-class Block(object):
+class Block(object): 
     def __init__(self, index, timestamp, data, previous_hash):
         self.index = index
         self.timestamp = timestamp
@@ -18,13 +18,12 @@ class Block(object):
         return sha.hexdigest()
 
     def print_block_info(self):
-        return "\nIndex \t\t\t>> %s \nTimestamp \t\t>> %s \nData \t\t\t>> %s \nPrevious Hash \t>> %s \nCurrent Hash \t>> %s" % \
-               (self.index, self.timestamp, self.data, self.previous_hash, self.hash)
-
+        return ("\nIndex \t\t\t>> {0.index} \nTimestamp \t\t>> {0.timestamp} \nData \t\t\t>> {0.data}"
+                "\nPrevious Hash \t>> {0.previous_hash} \nCurrent Hash \t>> {0.hash}").format(self)
 
 class Blockchain(object):
     chain = []
-
+    
     def __init__(self):
         if not self.does_chain_exist:
             self.chain = [self.create_genesis_block()]
@@ -56,11 +55,11 @@ class Blockchain(object):
         return Block(0, self.get_current_time(), "Thy Beginning", "0")
 
     def get_last_block(self):
-        return self.chain[len(self.chain) - 1]
+        return self.chain[-1]
 
     def get_current_time(self):
         now = date.datetime.now()
-        time = "%s/%s/%s %s:%s:%s" % (now.day, now.month, now.year, now.hour, now.minute, now.second)
+        time = "{0.day}/{0.month}/{0.year} {0.hour}:{0.minute}:{0.second}".format(now)
         return time
 
     def create_new_block(self):
@@ -98,23 +97,18 @@ class Blockchain(object):
             print(block.print_block_info()),
 
     def save_chain(self):
-        file = open("blockchain.txt", "w")
-
-        for block in self.chain:
-            file.write(block.print_block_info())
-
-        file.close()
-
+        with open("blockchain.txt", "w") as file:
+            for block in self.chain:
+                file.write(block.print_block_info())
 
 # Create Blockchain
 my_chain = Blockchain()
-
 
 # Max number of blocks in chain
 max_blocks = int(input("How many blocks do you plan on adding today, sir ? "))
 
 # Loop away
-for i in range(0, max_blocks):
+for i in range(max_blocks):
     my_chain.create_new_block()
 
 my_chain.print_chain()
