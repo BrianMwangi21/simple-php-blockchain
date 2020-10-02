@@ -31,16 +31,11 @@ class Blockchain(object):
 
     @property
     def does_chain_exist(self):
-        all_data = []
-
         if os.path.isfile("blockchain.txt"):
             print("<Message:001> File exists")
 
             with open("blockchain.txt") as file:
-                for line in file:
-                    if line != "\n":
-                        split_data = line[line.index(">>") + 3:].rstrip()
-                        all_data.append(split_data)
+                all_data = [line[line.index(">>") + 3:].rstrip() for line in file if line != "\n"]
 
             for data_index in range(0, len(all_data), 5):
                 self.chain.append(Block(all_data[data_index], all_data[data_index + 1], all_data[data_index + 2], all_data[data_index + 3]))
