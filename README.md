@@ -1,2 +1,2 @@
-# simple-php-blockchain
+# simple-python-blockchain
 A simple blockchain implemented in Python
